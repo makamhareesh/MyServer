@@ -1,0 +1,51 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Drag and Drop Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <style>
+  #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+  #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+  </style>
+  <script>
+  $(function() {
+	  var finalvar;
+	$( "#draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+    	 var divvar = $(this)[0].id;
+    	    $.ajax({
+    	  url: './test.json',
+    	  data: "",
+    	  dataType: 'json',
+    	  success: function(rows)
+    	  {
+			var serves = rows.results[0].serves;
+    	    var parking = rows.results[0].parking;
+    	    finalvar = serves+" "+parking;
+    	    console.log("Object Property"+divvar+" :: Server Property "+finalvar);
+    	  }
+    	}); 
+    	  
+         }
+    });
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="draggable" class="ui-widget-content">
+  <p>Drag to the right box</p>
+</div>
+ 
+<div id="droppable" class="ui-widget-header">
+  <p>Drop here</p>
+</div>
+ 
+ 
+</body>
+</html>
